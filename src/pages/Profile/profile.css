@@ -1,0 +1,19 @@
+.user-data-wrapper {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  min-height: 100px;
+  width: 300px;
+  background-color: #f2efe9;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.user-data h1 {
+  text-align: center;
+}
+
+.user-data p {
+  line-height: 30px;
+}

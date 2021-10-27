@@ -1,0 +1,22 @@
+header {
+  background-color: #F2EFE9;
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.auth-links,
+.nav-links {
+  display: flex;
+  justify-content: space-around;
+  max-width: 20%;
+}
+
+.nav-link {
+  margin: 0 10px;
+}
+
+.auth-link {
+  margin: 0 10px;
+}
