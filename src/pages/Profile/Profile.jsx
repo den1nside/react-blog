@@ -1,21 +1,16 @@
-import React, { useState, useEffect } from "react";
-import AuthServices from "../../api/auth-service";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser } from "../../actions/auth";
 import "./profile.css";
 
 function Profile() {
-  const [userData, setUserData] = useState({
-    userName: "",
-    email: "",
-  });
+  const dispatch = useDispatch();
+
+  const { id, userName, email } = useSelector((state) => state.auth);
 
   useEffect(() => {
-    AuthServices.getUser().then((response) => {
-      setUserData({
-        userName: response.data.name,
-        email: response.data.email,
-      });
-    });
-  }, []);
+    dispatch(getUser());
+  }, [dispatch]);
 
   return (
     <>
@@ -23,10 +18,16 @@ function Profile() {
         <div className="user-data">
           <h1>User Data</h1>
           <p>
-            <strong>Your name:</strong> {userData.userName}
+            <strong>id: </strong>
+            {id}
           </p>
           <p>
-            <strong>Your email:</strong> {userData.email}
+            <strong>Name: </strong>
+            {userName}
+          </p>
+          <p>
+            <strong>Email: </strong>
+            {email}
           </p>
         </div>
       </div>

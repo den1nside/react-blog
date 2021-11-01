@@ -1,0 +1,37 @@
+.addPost-title {
+  color: #c9d1d9;
+  font-size: 20px;
+}
+.title-input,
+.description-input,
+.fullText-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+.fullText-input {
+  min-height: 200px;
+  font-family: "Open Sans", sans-serif;
+}
+.addPost-button {
+  margin-top: 10px;
+  padding: 10px;
+  background-color: #d1495b;
+  border: none;
+  color: #c9d1d9;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 18px;
+  width: 150px;
+}
+.addPost-button:hover {
+  background-color: rgb(228, 40, 40);
+}
+.addPost .form-warn {
+  margin: 11px 0px 6px 10px;
+}
+.addPost .form-warn::before {
+  bottom: 24px;
+}

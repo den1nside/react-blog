@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap");
 
 * {
   box-sizing: border-box;
@@ -7,15 +7,56 @@
 }
 
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: "Open Sans", sans-serif;
+  color: #c9d1d9;
+}
+
+ul {
+  list-style-type: none;
 }
 
 a {
   text-decoration: none;
-  color: black;
+  color: #c9d1d9;
   font-weight: 600;
 }
 
 a:hover {
-  color: rgb(228, 40, 40);
+  color: none;
+}
+
+.container {
+  max-width: 1200px;
+  margin: auto;
+}
+
+header {
+  position: absolute;
+  top: 0;
+}
+
+textarea:focus,
+input:focus {
+  outline: 3px solid rebeccapurple;
+}
+textarea,
+input {
+  background-color: #161b22;
+}
+
+.Toastify__toast-icon {
+  width: 12px;
+}
+
+.Toastify__toast {
+  width: 109px;
+  min-height: 28px;
+  background-color: #161b22 !important;
+  font-size: 15px;
+  padding: 0;
+  color: #c9d1d9;
+}
+.Toastify__toast-container--bottom-right {
+  bottom: 0em;
+  right: -12em;
 }

@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import "./login.css";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import CustomInputComponent from "../../components/CustomInputComponent/CustomInputComponent";
 import { login } from "../../actions/auth";
 
 const SigninSchema = Yup.object().shape({
@@ -16,7 +17,6 @@ const SigninSchema = Yup.object().shape({
 
 function Login() {
   const { isLoggedIn } = useSelector((state) => state.auth);
-  const { message } = useSelector((state) => state.message);
 
   const dispatch = useDispatch();
 
@@ -41,12 +41,10 @@ function Login() {
               <div className="form-input-wrapper">
                 <Field
                   name="email"
+                  component={CustomInputComponent}
                   className="login-input"
                   placeholder="Enter email"
                 />
-                {errors.email && touched.email ? (
-                  <div className="form-warn">{errors.email}</div>
-                ) : null}
               </div>
               <div className="form-input-wrapper">
                 <Field
@@ -72,7 +70,6 @@ function Login() {
           </button>
         </Link>
 
-        {message ? <div className="form-response">{message}</div> : null}
         {isLoggedIn && <Redirect to="/profile" />}
       </div>
     </div>

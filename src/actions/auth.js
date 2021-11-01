@@ -3,8 +3,8 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  GET_USER_SUCCESS,
   LOGOUT,
-  SET_MESSAGE,
 } from "./types";
 import { setToStorage } from "../utils/global";
 import AuthService from "../api/auth-service";
@@ -15,22 +15,12 @@ export const register = (email, password, name) => (dispatch) => {
       dispatch({
         type: REGISTER_SUCCESS,
       });
-      dispatch({
-        type: SET_MESSAGE,
-      });
 
       return Promise.resolve();
     },
-    (error) => {
-      const { message } = error;
-
+    () => {
       dispatch({
         type: REGISTER_FAIL,
-      });
-
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
       });
 
       return Promise.reject();
@@ -48,18 +38,35 @@ export const login = (email, password) => (dispatch) => {
       });
       return Promise.resolve();
     },
-    (error) => {
-      const { message } = error;
-
+    () => {
       dispatch({
         type: LOGIN_FAIL,
       });
 
-      dispatch({
-        type: SET_MESSAGE,
-        payload: message,
-      });
+      return Promise.reject();
+    }
+  );
+};
 
+export const getUser = () => (dispatch) => {
+  return AuthService.getUser().then(
+    (response) => {
+      setToStorage(
+        "userData",
+        JSON.stringify({
+          // eslint-disable-next-line no-underscore-dangle
+          id: response.data._id,
+          userName: response.data.name,
+          email: response.data.email,
+        })
+      );
+      dispatch({
+        type: GET_USER_SUCCESS,
+        payload: response.data,
+      });
+      return Promise.resolve();
+    },
+    () => {
       return Promise.reject();
     }
   );

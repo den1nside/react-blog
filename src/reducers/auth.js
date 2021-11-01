@@ -3,15 +3,19 @@ import {
   REGISTER_FAIL,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  GET_USER_SUCCESS,
   LOGOUT,
 } from "../actions/types";
 
 const token = localStorage.getItem("token");
+const { email, id, userName } = localStorage.getItem("userData");
 
-const initialState = token ? { isLoggedIn: true } : { isLoggedIn: false };
+const initialState = token
+  ? { id, userName, email, isLoggedIn: true }
+  : { id: null, userName: null, email: null, isLoggedIn: false };
 
 const authReducer = (state = initialState, action) => {
-  const { type } = action;
+  const { type, payload } = action;
   switch (type) {
     case REGISTER_SUCCESS:
       return {
@@ -32,6 +36,14 @@ const authReducer = (state = initialState, action) => {
       return {
         ...state,
         isLoggedIn: false,
+      };
+    case GET_USER_SUCCESS:
+      return {
+        ...state,
+        // eslint-disable-next-line no-underscore-dangle
+        id: payload._id,
+        userName: payload.name,
+        email: payload.email,
       };
     case LOGOUT:
       return {
