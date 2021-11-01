@@ -1,3 +1,40 @@
 body {
-    background-color: #313e50;
+  background-color: #0d1117;
 }
+.wrapper {
+  padding: 40px 20px 20px 20px;
+}
+.entry {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.nologged-message {
+  background-color: #d1495b;
+  color: #c9d1d9;
+  text-align: center;
+}
+.posts-toggle {
+  margin-bottom: 10px;
+  border-bottom: 1px solid gray;
+}
+.button {
+  padding: 5px;
+  border: none;
+  color: #c9d1d9;
+  border-radius: 8px;
+  cursor: pointer;
+}
+.posts-toggle .all-posts,
+.posts-toggle .my-posts {
+  font-size: 20px;
+  background-color: transparent;
+  border: none;
+}
+.posts-toggle .my-posts {
+  margin-left: 10px;
+}
+.button:hover {
+  color: gray;
+}
+

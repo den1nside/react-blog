@@ -1,5 +1,5 @@
 header {
-  background-color: #F2EFE9;
+  background-color: #161b22;
   padding: 10px;
   display: flex;
   justify-content: space-between;
@@ -11,6 +11,11 @@ header {
   display: flex;
   justify-content: space-around;
   max-width: 20%;
+}
+
+.auth-link:hover,
+.nav-link:hover {
+  color: gray;
 }
 
 .nav-link {

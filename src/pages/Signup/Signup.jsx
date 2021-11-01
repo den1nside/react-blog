@@ -1,9 +1,10 @@
-import React, { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, Redirect } from "react-router-dom";
+import React from "react";
+import { useDispatch } from "react-redux";
+import { Link, useHistory } from "react-router-dom";
 import "./signup.css";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import CustomInputComponent from "../../components/CustomInputComponent/CustomInputComponent";
 import { register } from "../../actions/auth";
 
 const SignupSchema = Yup.object().shape({
@@ -13,25 +14,21 @@ const SignupSchema = Yup.object().shape({
     .required("Required"),
   email: Yup.string().email("Invalid email").required("Required"),
   password: Yup.string()
-    .min(2, "Too Short!")
+    .min(5, "Too Short!")
     .max(30, "Too Long!")
     .required("Required"),
 });
 
 function Register() {
-  const { message } = useSelector((state) => state.message);
   const dispatch = useDispatch();
-
-  const [successful, setSuccessful] = useState(null);
+  const history = useHistory();
 
   const handleRegister = (values) => {
-    dispatch(register(values.email, values.password, values.userName))
-      .then(() => {
-        setSuccessful(true);
-      })
-      .catch(() => {
-        setSuccessful(false);
-      });
+    dispatch(register(values.email, values.password, values.userName)).then(
+      () => {
+        history.push("/login");
+      }
+    );
   };
 
   return (
@@ -52,22 +49,18 @@ function Register() {
               <div className="form-input-wrapper">
                 <Field
                   name="userName"
+                  component={CustomInputComponent}
                   className="register-input"
                   placeholder="Enter username"
                 />
-                {errors.userName && touched.userName ? (
-                  <div className="form-warn">{errors.userName}</div>
-                ) : null}
               </div>
               <div className="form-input-wrapper">
                 <Field
                   name="email"
+                  component={CustomInputComponent}
                   className="register-input"
                   placeholder="Enter email"
                 />
-                {errors.email && touched.email ? (
-                  <div className="form-warn">{errors.email}</div>
-                ) : null}
               </div>
               <div className="form-input-wrapper">
                 <Field
@@ -93,11 +86,6 @@ function Register() {
             Login
           </button>
         </Link>
-
-        {successful ? <Redirect to="/login" /> : null}
-        {successful === false ? (
-          <div className="form-response">{message}</div>
-        ) : null}
       </div>
     </div>
   );

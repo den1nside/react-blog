@@ -1,0 +1,26 @@
+.pagination {
+  margin-bottom: 10px;
+}
+.pagination > ul {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+.pagination a {
+  font-size: 18px;
+  margin-right: 10px;
+  border: 1px solid #c9d1d9;
+  padding: 3px 11px;
+  border-radius: 20px;
+  color: #c9d1d9;
+}
+.pagination .disabled a,
+.pagination a:hover {
+  border-color: gray;
+  cursor: pointer;
+  color: gray;
+}
+.pagination .selected a {
+  border-color: #d1495b;
+  color: #d1495b;
+}

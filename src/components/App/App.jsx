@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Login from "../../pages/Login/Login";
 import Register from "../../pages/Signup/Signup";
 import Home from "../../pages/Home/Home";
+import SinglePost from "../../pages/SinglePost/SinglePost";
 import Profile from "../../pages/Profile/Profile";
 import PrivateRoute from "../../utils/PrivateRoute";
 import { logout } from "../../actions/auth";
@@ -44,15 +45,10 @@ function App() {
         </div>
       </header>
       <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
+        <Route exact path="/" component={Home} />
+        <Route path="/register" component={Register} />
+        <Route path="/login" component={Login} />
+        <Route path="/posts/:post_id" component={SinglePost} />
         <PrivateRoute exact path="/profile" component={Profile} />
       </Switch>
     </Router>
