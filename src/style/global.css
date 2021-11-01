@@ -42,6 +42,7 @@ input:focus {
 textarea,
 input {
   background-color: #161b22;
+  color: #c9d1d9;
 }
 
 .Toastify__toast-icon {

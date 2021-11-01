@@ -37,7 +37,7 @@ const PaginatedPosts = ({ allPosts }) => {
           breakLabel="..."
           nextLabel="next >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={5}
+          pageRangeDisplayed={3}
           pageCount={pageCount}
           previousLabel="< prev"
           renderOnZeroPageCount={null}

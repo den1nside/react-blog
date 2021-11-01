@@ -8,8 +8,9 @@ import {
 } from "../actions/types";
 
 const token = localStorage.getItem("token");
-const { email, id, userName } = localStorage.getItem("userData");
-
+const { email, id, userName } = JSON.parse(
+  localStorage.getItem("userData")
+) || { id: "", email: "", userName: "" };
 const initialState = token
   ? { id, userName, email, isLoggedIn: true }
   : { id: null, userName: null, email: null, isLoggedIn: false };
