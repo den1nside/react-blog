@@ -12,17 +12,42 @@ const addPost = (title, description, fullText) => {
   });
 };
 
+const deletePost = (postId) => {
+  return axios.delete(`/posts/${postId}`);
+};
+
+const editPost = (postId, title, description, fullText) => {
+  return axios.patch(`/posts/${postId}`, {
+    title,
+    description,
+    fullText,
+  });
+};
+
+const likePost = (postId) => {
+  return axios.put(`/posts/like/${postId}`);
+};
+
 const getSinglePost = (postId) => {
   return axios.get(`/posts/${postId}`);
 };
 
-const getImage = (imageId) => {
-  return axios.get(`http://51.158.179.21${imageId}`);
+const uploadImage = (postId, imageData) => {
+  const formData = new FormData();
+  formData.append("image", imageData);
+  return axios.put(`/posts/upload/${postId}`, formData, {
+    headers: {
+      "Content-Type": "multipart/form-data",
+    },
+  });
 };
 
 export default {
   getAllPosts,
   addPost,
   getSinglePost,
-  getImage,
+  deletePost,
+  editPost,
+  likePost,
+  uploadImage,
 };

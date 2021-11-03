@@ -1,8 +1,6 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
-import { useDispatch } from "react-redux";
-import addPost from "../../actions/posts";
 import CustomInputComponent from "../CustomInputComponent/CustomInputComponent";
 import "./addPost.css";
 
@@ -21,21 +19,29 @@ const addPostSchema = Yup.object().shape({
     .required("Required"),
 });
 
-function AddPost() {
-  const dispatch = useDispatch();
-
+function AddPost(props) {
+  const { postId } = props;
   const handleAddPost = (values, { resetForm }) => {
-    dispatch(addPost(values.title, values.description, values.fullText)).then(
-      () => {
-        resetForm();
-      }
-    );
+    if (postId) {
+      props
+        .method(props.postId, values.title, values.description, values.fullText)
+        .then(() => {
+          resetForm();
+        });
+    } else {
+      props
+        .method(values.title, values.description, values.fullText)
+        .then(() => {
+          resetForm();
+        });
+    }
+    window.location.reload();
   };
 
   return (
     <div className="addPost-wrapper">
       <div className="addPost">
-        <span className="addPost-title">Add your post</span>
+        {postId ? null : <span className="addPost-title">Add your post</span>}
         <Formik
           initialValues={{
             title: "",
@@ -75,7 +81,7 @@ function AddPost() {
                 ) : null}
               </div>
               <button type="submit" className="addPost-button">
-                Post
+                Submit
               </button>
             </Form>
           )}

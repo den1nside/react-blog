@@ -15,9 +15,7 @@ function Post({ _id, title, description, dateCreated, postedBy, likes }) {
         <div className="post-author">Posted by {postedBy || "anon"}</div>
         <div className="post-date">Posted at {dateCreated}</div>
       </div>
-      <button type="button" className="post-likes">
-        Likes {likes.length}
-      </button>
+      <div className="post-likes">Likes {likes.length}</div>
     </div>
   );
 }

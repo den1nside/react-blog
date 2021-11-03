@@ -1,8 +1,12 @@
 import PostService from "../api/posts-service";
+import { LIKE_POST } from "./types";
 
-const addPost = (title, description, fullText) => () => {
-  return PostService.addPost(title, description, fullText).then(
+const likePost = (postId) => (dispatch) => {
+  return PostService.lokePost(postId).then(
     () => {
+      dispatch({
+        type: LIKE_POST,
+      });
       return Promise.resolve();
     },
     () => {
@@ -11,4 +15,4 @@ const addPost = (title, description, fullText) => () => {
   );
 };
 
-export default addPost;
+export default likePost;

@@ -14,9 +14,11 @@ body {
   color: #c9d1d9;
   text-align: center;
 }
-.posts-toggle {
+.posts-operations {
   margin-bottom: 10px;
   border-bottom: 1px solid gray;
+  display: flex;
+  justify-content: space-between;
 }
 .button {
   padding: 5px;
@@ -24,12 +26,18 @@ body {
   color: #c9d1d9;
   border-radius: 8px;
   cursor: pointer;
+  background-color: gray;
 }
 .posts-toggle .all-posts,
 .posts-toggle .my-posts {
   font-size: 20px;
   background-color: transparent;
   border: none;
+}
+.posts-search input {
+  padding: 5px;
+  border-radius: 8px;
+  margin-right: 5px;
 }
 .posts-toggle .my-posts {
   margin-left: 10px;

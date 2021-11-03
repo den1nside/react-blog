@@ -9,7 +9,7 @@ const getAllPostsOrdered = (id) => {
     .then((total) => {
       const skip = id ? 0 : total - latestPosts;
       return PostService.getAllPosts(latestPosts, skip, id).then((res) => {
-        return res.data.data.reverse();
+        return (res.data?.data || []).reverse();
       });
     });
 };

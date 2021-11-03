@@ -37,14 +37,21 @@ header {
 
 textarea:focus,
 input:focus {
-  outline: 3px solid rebeccapurple;
+  outline: 1px solid rebeccapurple;
 }
 textarea,
 input {
   background-color: #161b22;
   color: #c9d1d9;
+  border: none;
 }
-
+select,
+option {
+  background-color: #0d1117;
+  outline: none;
+  border: none;
+  color: #c9d1d9;
+}
 .Toastify__toast-icon {
   width: 12px;
 }
