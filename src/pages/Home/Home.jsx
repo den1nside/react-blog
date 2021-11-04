@@ -35,7 +35,7 @@ function Home() {
   return (
     <div className="wrapper">
       <div className="container">
-        <div className="posts-operations">
+        <div className="operations">
           <div className="posts-toggle">
             <button
               type="button"

@@ -56,7 +56,7 @@ export const getUser = () => (dispatch) => {
         JSON.stringify({
           // eslint-disable-next-line no-underscore-dangle
           id: response.data._id,
-          userName: response.data.name,
+          name: response.data.name,
           email: response.data.email,
         })
       );

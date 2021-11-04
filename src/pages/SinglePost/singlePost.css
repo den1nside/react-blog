@@ -20,8 +20,8 @@
   margin-right: 10px;
 }
 .submit,
-.post-delete,
-.post-edit {
+.button-delete,
+.button-edit {
   background-color: transparent;
 }
 .single-post .post-likes {

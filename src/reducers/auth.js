@@ -8,12 +8,14 @@ import {
 } from "../actions/types";
 
 const token = localStorage.getItem("token");
-const { email, id, userName } = JSON.parse(
-  localStorage.getItem("userData")
-) || { id: "", email: "", userName: "" };
+const { email, id, name } = JSON.parse(localStorage.getItem("userData")) || {
+  id: "",
+  email: "",
+  name: "",
+};
 const initialState = token
-  ? { id, userName, email, isLoggedIn: true }
-  : { id: null, userName: null, email: null, isLoggedIn: false };
+  ? { id, name, email, isLoggedIn: true }
+  : { id: null, name: null, email: null, isLoggedIn: false };
 
 const authReducer = (state = initialState, action) => {
   const { type, payload } = action;
@@ -39,12 +41,12 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: false,
       };
     case GET_USER_SUCCESS:
+      console.log(payload);
       return {
         ...state,
         // eslint-disable-next-line no-underscore-dangle
         id: payload._id,
-        userName: payload.name,
-        email: payload.email,
+        ...payload,
       };
     case LOGOUT:
       return {

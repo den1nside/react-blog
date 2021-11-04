@@ -6,6 +6,7 @@ import Register from "../../pages/Signup/Signup";
 import Home from "../../pages/Home/Home";
 import SinglePost from "../../pages/SinglePost/SinglePost";
 import Profile from "../../pages/Profile/Profile";
+import UsersList from "../../pages/UsersList/UsersList";
 import PrivateRoute from "../../utils/PrivateRoute";
 import { logout } from "../../actions/auth";
 import "./app.css";
@@ -26,6 +27,9 @@ function App() {
           </Link>
           <Link to="/profile">
             <div className="nav-link">Profile</div>
+          </Link>
+          <Link to="/users-list">
+            <div className="nav-link">Users</div>
           </Link>
         </div>
         <div className="auth-links">
@@ -50,6 +54,7 @@ function App() {
         <Route path="/login" component={Login} />
         <Route path="/posts/:post_id" component={SinglePost} />
         <PrivateRoute exact path="/profile" component={Profile} />
+        <PrivateRoute exact path="/users-list" component={UsersList} />
       </Switch>
     </Router>
   );

@@ -14,7 +14,7 @@ body {
   color: #c9d1d9;
   text-align: center;
 }
-.posts-operations {
+.operations {
   margin-bottom: 10px;
   border-bottom: 1px solid gray;
   display: flex;
@@ -34,7 +34,7 @@ body {
   background-color: transparent;
   border: none;
 }
-.posts-search input {
+.search input {
   padding: 5px;
   border-radius: 8px;
   margin-right: 5px;

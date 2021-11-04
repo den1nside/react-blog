@@ -1,19 +1,27 @@
 .user-data-wrapper {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  min-height: 100px;
-  width: 300px;
   background-color: #161b22;
+  max-width: 500px;
   padding: 20px;
   border-radius: 10px;
+  margin: 50px auto;
 }
-
 .user-data h1 {
   text-align: center;
 }
-
 .user-data p {
   line-height: 30px;
+}
+.user-services {
+  text-align: end;
+  margin-top: 10px;
+}
+.user-data-wrapper .form-warn {
+  margin: 11px 0 5px 10px;
+}
+.user-data-wrapper .form-warn::before {
+  bottom: 24px;
+}
+.user-data-wrapper input,
+.user-data-wrapper textarea {
+  background-color: #0d1117;
 }

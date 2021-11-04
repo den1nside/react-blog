@@ -44,6 +44,7 @@ input {
   background-color: #161b22;
   color: #c9d1d9;
   border: none;
+  font-family: "Open Sans", sans-serif;
 }
 select,
 option {
@@ -67,4 +68,7 @@ option {
 .Toastify__toast-container--bottom-right {
   bottom: 0em;
   right: -12em;
+}
+td {
+  padding-left: 20px;
 }

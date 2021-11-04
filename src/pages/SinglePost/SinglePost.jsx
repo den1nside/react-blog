@@ -87,14 +87,14 @@ function SinglePost(props) {
                 <button
                   onClick={() => setShowEdit(!showEdit)}
                   type="button"
-                  className="button post-edit"
+                  className="button button-edit"
                 >
                   Edit
                 </button>
                 <button
                   onClick={() => handleOnDelete(postData._id)}
                   type="button"
-                  className="button post-delete"
+                  className="button button-delete"
                 >
                   Delete
                 </button>
