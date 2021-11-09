@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import UserService from "../../api/user-service";
 import "./usersList.css";
 
@@ -14,15 +14,24 @@ function UsersList() {
     });
   }, []);
 
-  const sorted = allUsers.sort((a, b) => {
-    if (a[sortKey] > b[sortKey]) {
-      return -1;
-    }
-    if (a[sortKey] < b[sortKey]) {
-      return 1;
-    }
-    return 0;
-  });
+  const sorted = useMemo(() => {
+    return allUsers
+      .sort((a, b) => {
+        if (a[sortKey] > b[sortKey]) {
+          return -1;
+        }
+        if (a[sortKey] < b[sortKey]) {
+          return 1;
+        }
+        return 0;
+      })
+      .filter((user) => {
+        if (user.name) {
+          return user.name.toLowerCase().includes(search.toLowerCase());
+        }
+        return null;
+      });
+  }, [allUsers, sortKey, search]);
 
   return (
     <div className="wrapper">
@@ -45,17 +54,10 @@ function UsersList() {
       </div>
       <div className="user-entry">
         {sorted.map((user) => {
-          if (
-            (user.name &&
-              user.name.toLowerCase().indexOf(search.toLowerCase()) === -1) ||
-            (search && !user.name)
-          ) {
-            return null;
-          }
           return (
             <table key={user._id} className="user-info">
               <tbody>
-                {user.avatar ? (
+                {user.avatar && (
                   <tr className="user-avatar">
                     <td>
                       <img
@@ -64,7 +66,7 @@ function UsersList() {
                       />
                     </td>
                   </tr>
-                ) : null}
+                )}
                 <tr>
                   <th>Username:</th>
                   <td>{user.name}</td>

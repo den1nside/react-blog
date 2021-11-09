@@ -72,7 +72,7 @@ function Home() {
         </div>
         <PaginatedPosts allPosts={allPosts} search={search} sortKey={sortKey} />
         {isLoggedIn ? (
-          <AddPost method={PostService.addPost} />
+          <AddPost method={PostService.addPost} setAllPosts={setAllPosts} />
         ) : (
           <div className="nologged-message">Please log in to leave a post</div>
         )}

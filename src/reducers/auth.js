@@ -41,7 +41,6 @@ const authReducer = (state = initialState, action) => {
         isLoggedIn: false,
       };
     case GET_USER_SUCCESS:
-      console.log(payload);
       return {
         ...state,
         // eslint-disable-next-line no-underscore-dangle

@@ -1,9 +1,11 @@
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { Formik, Form, Field } from "formik";
-import { useSelector } from "react-redux";
 import * as Yup from "yup";
+import { getUser } from "../../actions/auth";
 import UserService from "../../api/user-service";
 import CustomInputComponent from "../CustomInputComponent/CustomInputComponent";
+import CustomTextArea from "../CustomTextArea/CustomTextArea";
 import "./editProfile.css";
 
 const editProfileShema = Yup.object().shape({
@@ -31,18 +33,12 @@ const editProfileShema = Yup.object().shape({
 
 function EditProfile() {
   const { id } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
   const handleEditProfile = (values, { resetForm }) => {
-    UserService.editUser(
-      id,
-      values.name,
-      values.extraDetails,
-      values.skills,
-      values.profession,
-      values.details
-    ).then(() => {
+    UserService.editUser(id, values).then(() => {
+      dispatch(getUser());
       resetForm();
     });
-    window.location.reload();
   };
 
   return (
@@ -59,7 +55,7 @@ function EditProfile() {
           validationSchema={editProfileShema}
           onSubmit={handleEditProfile}
         >
-          {({ errors, touched }) => (
+          {() => (
             <Form className="editProfile-form">
               <div className="form-input-wrapper">
                 <Field
@@ -81,34 +77,25 @@ function EditProfile() {
                 <Field
                   name="extraDetails"
                   className="extraDetails-input"
+                  component={CustomTextArea}
                   placeholder="Enter extraDetails"
-                  as="textarea"
                 />
-                {errors.extraDetails && touched.extraDetails ? (
-                  <div className="form-warn">{errors.extraDetails}</div>
-                ) : null}
               </div>
               <div className="form-input-wrapper">
                 <Field
                   name="skills"
                   className="skills-input"
                   placeholder="Enter skills"
-                  as="textarea"
+                  component={CustomTextArea}
                 />
-                {errors.skills && touched.skills ? (
-                  <div className="form-warn">{errors.skills}</div>
-                ) : null}
               </div>
               <div className="form-input-wrapper">
                 <Field
                   name="details"
                   className="details-input"
                   placeholder="Enter details"
-                  as="textarea"
+                  component={CustomTextArea}
                 />
-                {errors.details && touched.details ? (
-                  <div className="form-warn">{errors.details}</div>
-                ) : null}
               </div>
               <button type="submit" className="editProfile-button">
                 Submit

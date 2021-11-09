@@ -32,8 +32,11 @@ function Profile() {
     });
   };
 
-  const handleOnSubmit = () => {
-    UserService.uploadAvatar(id, fileInput.current.files[0]);
+  const handleOnSubmit = (e) => {
+    e.preventDefault();
+    UserService.uploadAvatar(id, fileInput.current.files[0]).then(() => {
+      dispatch(getUser());
+    });
   };
 
   return (
@@ -42,7 +45,7 @@ function Profile() {
         <div className="user-data">
           <table className="user-info">
             <tbody>
-              {avatar ? (
+              {avatar && (
                 <tr className="user-avatar">
                   <td>
                     <img
@@ -51,7 +54,7 @@ function Profile() {
                     />
                   </td>
                 </tr>
-              ) : null}
+              )}
 
               <tr>
                 <th>Username:</th>

@@ -13,19 +13,17 @@ const deleteUser = (userId) => {
   return axios.delete(`/users/${userId}`);
 };
 
-const editUser = (userId, name, extra_details, skills, profession, details) => {
+const editUser = (userId, values) => {
+  const { extraDetails, ...rest } = values;
   return axios.patch(`/users/${userId}`, {
-    name,
-    extra_details,
-    skills,
-    profession,
-    details,
+    ...rest,
+    extra_details: values.extraDetails,
   });
 };
 
 const uploadAvatar = (userId, imageData) => {
   const formData = new FormData();
-  formData.append("image", imageData);
+  formData.append("avatar", imageData);
   return axios.put(`/users/upload/${userId}`, formData, {
     headers: {
       "Content-Type": "multipart/form-data",
@@ -33,4 +31,4 @@ const uploadAvatar = (userId, imageData) => {
   });
 };
 
-export default { getUser, getAllUsers, deleteUser, editUser };
+export default { getUser, getAllUsers, deleteUser, editUser, uploadAvatar };

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import Post from "../Post/Post";
 import "./paginatedPosts.css";
@@ -8,20 +8,26 @@ const PaginatedPosts = ({ allPosts, search, sortKey }) => {
   const [postsPerPage] = useState(5);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = search
-    ? allPosts
-    : allPosts
-        .slice(indexOfFirstPost, indexOfLastPost)
-        .reverse()
-        .sort((a, b) => {
-          if (a[sortKey] > b[sortKey]) {
-            return -1;
-          }
-          if (a[sortKey] < b[sortKey]) {
-            return 1;
-          }
-          return 0;
-        });
+  const currentPosts = useMemo(() => {
+    if (search) {
+      return allPosts.filter((post) =>
+        post.title.toLowerCase().includes(search.toLowerCase())
+      );
+    }
+    return allPosts
+      .slice(indexOfFirstPost, indexOfLastPost)
+      .reverse()
+      .sort((a, b) => {
+        if (a[sortKey] > b[sortKey]) {
+          return -1;
+        }
+        if (a[sortKey] < b[sortKey]) {
+          return 1;
+        }
+        return 0;
+      });
+  }, [search, allPosts, indexOfFirstPost, indexOfLastPost, sortKey]);
+
   const pageCount = Math.ceil(allPosts.length / postsPerPage);
 
   const handlePageClick = (event) => {
@@ -32,9 +38,6 @@ const PaginatedPosts = ({ allPosts, search, sortKey }) => {
     <>
       <div className="entry">
         {currentPosts.map((post) => {
-          if (post.title.toLowerCase().indexOf(search.toLowerCase()) === -1) {
-            return null;
-          }
           return (
             <Post
               // eslint-disable-next-line no-underscore-dangle

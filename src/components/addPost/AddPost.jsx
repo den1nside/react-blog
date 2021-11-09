@@ -1,7 +1,10 @@
 import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
+import PostService from "../../api/posts-service";
 import CustomInputComponent from "../CustomInputComponent/CustomInputComponent";
+import CustomTextArea from "../CustomTextArea/CustomTextArea";
+import getAllPostsOrdered from "../../utils/getAllPostsOrdered";
 import "./addPost.css";
 
 const addPostSchema = Yup.object().shape({
@@ -20,22 +23,25 @@ const addPostSchema = Yup.object().shape({
 });
 
 function AddPost(props) {
-  const { postId } = props;
+  const { postId, setPostData, setAllPosts } = props;
   const handleAddPost = (values, { resetForm }) => {
     if (postId) {
       props
         .method(props.postId, values.title, values.description, values.fullText)
         .then(() => {
+          PostService.getSinglePost(postId).then((res) => {
+            setPostData(res.data);
+          });
           resetForm();
         });
     } else {
       props
         .method(values.title, values.description, values.fullText)
         .then(() => {
+          getAllPostsOrdered().then(setAllPosts);
           resetForm();
         });
     }
-    window.location.reload();
   };
 
   return (
@@ -51,8 +57,14 @@ function AddPost(props) {
           validationSchema={addPostSchema}
           onSubmit={handleAddPost}
         >
-          {({ errors, touched }) => (
-            <Form className="addPost-form">
+          {({ handleSubmit }) => (
+            <Form
+              onSubmit={(e) => {
+                e.preventDefault();
+                handleSubmit();
+              }}
+              className="addPost-form"
+            >
               <div className="form-input-wrapper">
                 <Field
                   name="title"
@@ -74,11 +86,8 @@ function AddPost(props) {
                   name="fullText"
                   className="fullText-input"
                   placeholder="Enter text"
-                  as="textarea"
+                  component={CustomTextArea}
                 />
-                {errors.fullText && touched.fullText ? (
-                  <div className="form-warn">{errors.fullText}</div>
-                ) : null}
               </div>
               <button type="submit" className="addPost-button">
                 Submit
