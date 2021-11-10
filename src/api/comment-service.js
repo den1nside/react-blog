@@ -4,11 +4,10 @@ const getAllComments = (postId) => {
   return axios.get(`/comments/post/${postId}`);
 };
 
-const addComment = (postId, text, followedCommentId) => {
+const addComment = (postId, text, followedCommentID) => {
   return axios.post(`/comments/post/${postId}`, {
-    postId,
     text,
-    followedCommentId,
+    followedCommentID,
   });
 };
 

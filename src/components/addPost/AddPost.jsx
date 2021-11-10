@@ -47,7 +47,7 @@ function AddPost(props) {
   return (
     <div className="addPost-wrapper">
       <div className="addPost">
-        {postId ? null : <span className="addPost-title">Add your post</span>}
+        {postId && <span className="addPost-title">Add your post</span>}
         <Formik
           initialValues={{
             title: "",
@@ -57,14 +57,8 @@ function AddPost(props) {
           validationSchema={addPostSchema}
           onSubmit={handleAddPost}
         >
-          {({ handleSubmit }) => (
-            <Form
-              onSubmit={(e) => {
-                e.preventDefault();
-                handleSubmit();
-              }}
-              className="addPost-form"
-            >
+          {() => (
+            <Form className="addPost-form">
               <div className="form-input-wrapper">
                 <Field
                   name="title"

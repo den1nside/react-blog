@@ -10,7 +10,7 @@ header {
 .nav-links {
   display: flex;
   justify-content: space-around;
-  max-width: 20%;
+  max-width: 50%;
 }
 
 .auth-link:hover,

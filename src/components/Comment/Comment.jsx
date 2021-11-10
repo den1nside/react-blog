@@ -3,6 +3,7 @@
 import React, { useEffect, useState, useMemo } from "react";
 import { useSelector } from "react-redux";
 import CommentService from "../../api/comment-service";
+import AddComment from "../addComment/addComment";
 import "./comment.css";
 
 function Comment({
@@ -11,13 +12,15 @@ function Comment({
   dateCreated,
   commentedBy,
   likes,
-  followedCommentID,
   allComments,
+  postId,
+  setAllComments,
 }) {
   const { id } = useSelector((state) => state.auth);
   const { isLoggedIn } = useSelector((state) => state.auth);
   const [isLiked, setIsLiked] = useState(null);
   const [showEdit, setShowEdit] = useState(false);
+  const [showReply, setShowReply] = useState(false);
   const [commentLikes, setCommentLikes] = useState(likes.length);
 
   useEffect(() => {
@@ -29,7 +32,11 @@ function Comment({
   }, [id, likes]);
 
   const handleOnDelete = (commentId) => {
-    CommentService.deleteComment(commentId);
+    CommentService.deleteComment(commentId).then(() => {
+      CommentService.getAllComments(postId).then((res) => {
+        setAllComments(res.data);
+      });
+    });
   };
 
   const handleOnLike = (commentId) => {
@@ -48,51 +55,85 @@ function Comment({
 
   return (
     <>
-      <div className="comment">
-        <div className="comment-entry">
-          <p className="comment-text">{_id}</p>
-          <p className="comment-text">{followedCommentID}</p>
-          <p className="comment-text">{text}</p>
-        </div>
-        <div className="comment-meta">
-          <div className="comment-author">
-            commented by {commentedBy || "anon"}
+      {showEdit ? (
+        <AddComment
+          setShowEdit={setShowEdit}
+          postId={postId}
+          method={CommentService.editComment}
+          commentId={_id}
+          setAllComments={setAllComments}
+        />
+      ) : (
+        <div className="comment">
+          <div className="comment-entry">
+            <p className="comment-text">{text}</p>
           </div>
-          <div className="comment-date">commented at {dateCreated}</div>
-        </div>
-        <div className="post-services-wrapper">
-          <button
-            type="button"
-            onClick={() => isLoggedIn && handleOnLike(_id)}
-            className="post-likes"
-          >
-            {isLiked ? "Unlike" : "Like"} {commentLikes}
-          </button>
-          <div className="post-services">
-            <button type="button" className="button button-reply">
-              Reply
+          <div className="comment-meta">
+            <div className="comment-author">
+              commented by {commentedBy || "anon"}
+            </div>
+            <div className="comment-date">commented at {dateCreated}</div>
+          </div>
+          <div className="post-services-wrapper">
+            <button
+              type="button"
+              onClick={() => isLoggedIn && handleOnLike(_id)}
+              className="post-likes"
+            >
+              {isLiked ? "Unlike" : "Like"} {commentLikes}
             </button>
-            {id === commentedBy && (
-              <>
-                <button type="button" className="button button-edit">
-                  Edit
-                </button>
+            <div className="post-services">
+              {isLoggedIn && (
                 <button
                   type="button"
-                  onClick={() => handleOnDelete(_id)}
-                  className="button button-delete"
+                  onClick={() => setShowReply(!showReply)}
+                  className="button button-reply"
                 >
-                  Delete
+                  Reply
                 </button>
-              </>
-            )}
+              )}
+              {id === commentedBy && (
+                <>
+                  <button
+                    type="button"
+                    onClick={() => setShowEdit(true)}
+                    className="button button-edit"
+                  >
+                    Edit
+                  </button>
+                  <button
+                    type="button"
+                    onClick={() => handleOnDelete(_id)}
+                    className="button button-delete"
+                  >
+                    Delete
+                  </button>
+                </>
+              )}
+            </div>
           </div>
+          {showReply && (
+            <AddComment
+              followedCommentID={_id}
+              postId={postId}
+              setAllComments={setAllComments}
+              setShowReply={setShowReply}
+              method={CommentService.addComment}
+            />
+          )}
         </div>
-      </div>
+      )}
+
       <div className="reply-comment">
         {replyComments.map((comment) => {
           return (
-            <Comment allComments={allComments} key={comment._id} {...comment} />
+            <Comment
+              allComments={allComments}
+              key={comment._id}
+              {...comment}
+              postId={postId}
+              setAllComments={setAllComments}
+            />
           );
         })}
       </div>

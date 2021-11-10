@@ -9,7 +9,7 @@ import "./style/global.css";
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <ToastContainer />;
+      <ToastContainer />
       <App />
     </React.StrictMode>
   </Provider>,

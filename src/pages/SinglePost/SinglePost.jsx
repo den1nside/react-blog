@@ -8,6 +8,7 @@ import PostService from "../../api/posts-service";
 import CommentService from "../../api/comment-service";
 import AddPost from "../../components/addPost/AddPost";
 import Comment from "../../components/Comment/Comment";
+import AddComment from "../../components/addComment/addComment";
 import "./singlePost.css";
 
 function SinglePost(props) {
@@ -148,10 +149,22 @@ function SinglePost(props) {
                 allComments={allComments}
                 key={comment._id}
                 {...comment}
+                postId={post_id}
+                setAllComments={setAllComments}
               />
             );
           })}
         </div>
+        {isLoggedIn ? (
+          <AddComment
+            followedCommentID={post_id}
+            postId={post_id}
+            setAllComments={setAllComments}
+            method={CommentService.addComment}
+          />
+        ) : (
+          <div className="nologged-message">Please log in to leave a post</div>
+        )}
       </div>
     </div>
   ) : (

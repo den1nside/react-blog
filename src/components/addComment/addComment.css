@@ -1,0 +1,37 @@
+.addComment-title {
+  color: #c9d1d9;
+  font-size: 20px;
+}
+.comment .text-input {
+  background-color: #0d1117;
+}
+.text-input {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 20px;
+  margin-top: 10px;
+}
+.text-input {
+  min-height: 100px;
+}
+.addComment-button {
+  margin: 10px 0 15px 0;
+  padding: 5px;
+  background-color: #d1495b;
+  border: none;
+  color: #c9d1d9;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 15px;
+  width: 80px;
+}
+.addComment-button:hover {
+  background-color: rgb(228, 40, 40);
+}
+.addComment .form-warn {
+  margin: 11px 0px 6px 10px;
+}
+.addComment .form-warn::before {
+  bottom: 24px;
+}
