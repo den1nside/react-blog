@@ -3,8 +3,12 @@ import React, { useEffect, useState, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getUser, logout } from "../../actions/auth";
 import UserService from "../../api/user-service";
-import EditProfile from "../../components/editProfile/EditProfile";
-import "./profile.css";
+import EditProfile from "../../components/EditProfile";
+import Container from "../../style/Container.styled";
+import Button from "../../style/Button.styled";
+import UserAvatar from "../../style/UserAvatar.styled";
+import UserInfo from "../../style/UserInfo.styled";
+import { UserServices, UserDataWrapper, UserData } from "./Profile.styled";
 
 function Profile() {
   const [showEdit, setShowEdit] = useState(false);
@@ -40,20 +44,20 @@ function Profile() {
   };
 
   return (
-    <div className="container">
-      <div className="user-data-wrapper">
-        <div className="user-data">
-          <table className="user-info">
+    <Container>
+      <UserDataWrapper>
+        <UserData>
+          <UserInfo>
             <tbody>
               {avatar && (
-                <tr className="user-avatar">
+                <UserAvatar>
                   <td>
                     <img
                       src={`${process.env.REACT_APP_IMAGE_SRC}${avatar}`}
                       alt="img"
                     />
                   </td>
-                </tr>
+                </UserAvatar>
               )}
 
               <tr>
@@ -89,37 +93,33 @@ function Profile() {
                 <td>{dateCreated}</td>
               </tr>
             </tbody>
-          </table>
-        </div>
-        <div className="user-services">
-          <button
+          </UserInfo>
+        </UserData>
+        <UserServices>
+          <Button
             type="button"
+            width="50px"
             onClick={() => setShowEdit(!showEdit)}
-            className="button button-edit"
           >
             Edit
-          </button>
-          <button
-            type="button"
-            onClick={handleOnDelete}
-            className="button button-delete"
-          >
+          </Button>
+          <Button type="button" width="50px" onClick={handleOnDelete}>
             Delete
-          </button>
-        </div>
+          </Button>
+        </UserServices>
         {showEdit ? (
-          <div className="edit-form">
+          <div>
             <form onSubmit={handleOnSubmit}>
               <input type="file" ref={fileInput} />
-              <button className="button submit" type="submit">
+              <Button width="fit-content" type="submit">
                 Submit
-              </button>
+              </Button>
             </form>
             <EditProfile />
           </div>
         ) : null}
-      </div>
-    </div>
+      </UserDataWrapper>
+    </Container>
   );
 }
 

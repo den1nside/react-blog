@@ -1,22 +1,26 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./post.css";
+import { PostDate, PostDescr, PostMeta } from "./Post.styled";
+import PostStyled from "../../style/Post.styled";
+import Title from "../../style/Title.styled";
 
 function Post({ _id, title, description, dateCreated, postedBy, likes }) {
   return (
-    <div className="post">
-      <div className="post-entry">
+    <PostStyled>
+      <div>
         <Link to={`/posts/${_id}`}>
-          <h2 className="post-title">{title}</h2>
+          <Title styled hover>
+            {title}
+          </Title>
         </Link>
-        <p className="post-descr">{description}</p>
+        <PostDescr>{description}</PostDescr>
       </div>
-      <div className="post-meta">
-        <div className="post-author">Posted by {postedBy || "anon"}</div>
-        <div className="post-date">Posted at {dateCreated}</div>
-      </div>
-      <div className="post-likes">Likes {likes.length}</div>
-    </div>
+      <PostMeta>
+        <div>Posted by {postedBy || "anon"}</div>
+        <PostDate>Posted at {dateCreated}</PostDate>
+      </PostMeta>
+      <div>Likes {likes.length}</div>
+    </PostStyled>
   );
 }
 

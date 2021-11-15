@@ -1,20 +1,25 @@
 /* eslint-disable react/jsx-props-no-spreading */
 import React from "react";
-import Warn from "../../style/Warn.styled";
-import Input from "../../style/Input.styled";
+import Warn from "../style/Warn.styled";
+import TextArea from "../style/TextArea.styled";
 
-const CustomInputComponent = ({
+const CustomTextArea = ({
   field,
   form: { touched, errors },
   backgroundDark,
   ...props
 }) => (
   <div>
-    <Input backgroundDark={backgroundDark} type="text" {...field} {...props} />
+    <TextArea
+      type="text"
+      backgroundDark={backgroundDark}
+      {...field}
+      {...props}
+    />
     {touched[field.name] && errors[field.name] && (
       <Warn>{errors[field.name]}</Warn>
     )}
   </div>
 );
 
-export default CustomInputComponent;
+export default CustomTextArea;

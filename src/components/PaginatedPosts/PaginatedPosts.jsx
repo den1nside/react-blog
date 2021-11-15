@@ -1,7 +1,7 @@
 import React, { useState, useMemo } from "react";
 import ReactPaginate from "react-paginate";
 import Post from "../Post/Post";
-import "./paginatedPosts.css";
+import PaginationStyled from "./PaginatedPosts.styled";
 
 const PaginatedPosts = ({ allPosts, search, sortKey }) => {
   const [currentPage, setCurrentPage] = useState(1);
@@ -48,17 +48,17 @@ const PaginatedPosts = ({ allPosts, search, sortKey }) => {
           );
         })}
       </div>
-      <div className="pagination">
+      <PaginationStyled>
         <ReactPaginate
           breakLabel="..."
-          nextLabel="next >"
+          nextLabel=">"
           onPageChange={handlePageClick}
           pageRangeDisplayed={3}
           pageCount={pageCount}
-          previousLabel="< prev"
+          previousLabel="<"
           renderOnZeroPageCount={null}
         />
-      </div>
+      </PaginationStyled>
     </>
   );
 };

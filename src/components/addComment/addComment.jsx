@@ -2,8 +2,10 @@ import React from "react";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 import CommentService from "../../api/comment-service";
-import CustomTextArea from "../CustomTextArea/CustomTextArea";
-import "./addComment.css";
+import CustomTextArea from "../CustomTextArea";
+import Button from "../../style/Button.styled";
+import InputWrapper from "../../style/InputWrapper.styled";
+import AddCommentTitle from "./addComment.styled";
 
 const addCommentSchema = Yup.object().shape({
   text: Yup.string()
@@ -20,6 +22,7 @@ function AddComment({
   setShowEdit,
   method,
   commentId,
+  backgroundDark,
 }) {
   const handleAddComment = (values, { resetForm }) => {
     if (commentId) {
@@ -44,13 +47,13 @@ function AddComment({
   };
 
   return (
-    <div className="addComment-wrapper">
-      <div className="addComment">
+    <div>
+      <div>
         {!commentId &&
           (postId === followedCommentID ? (
-            <span className="addComment-title">Add your comment</span>
+            <AddCommentTitle>Add your comment</AddCommentTitle>
           ) : (
-            <span className="addComment-title">Reply</span>
+            <AddCommentTitle>Reply</AddCommentTitle>
           ))}
 
         <Formik
@@ -61,26 +64,26 @@ function AddComment({
           onSubmit={handleAddComment}
         >
           {() => (
-            <Form className="addComment-form">
-              <div className="form-input-wrapper">
+            <Form>
+              <InputWrapper>
                 <Field
                   name="text"
-                  className="text-input"
                   placeholder="Enter text"
                   component={CustomTextArea}
+                  backgroundDark={backgroundDark}
                 />
-              </div>
-              <button type="submit" className="addComment-button">
+              </InputWrapper>
+              <Button type="submit" styled width="fit-content">
                 Submit
-              </button>
+              </Button>
               {setShowEdit && (
-                <button
+                <Button
                   type="button"
+                  width="fit-content"
                   onClick={() => setShowEdit(false)}
-                  className="button button-edit"
                 >
                   Edit
-                </button>
+                </Button>
               )}
             </Form>
           )}

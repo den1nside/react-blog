@@ -6,10 +6,21 @@ import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import PostService from "../../api/posts-service";
 import CommentService from "../../api/comment-service";
-import AddPost from "../../components/addPost/AddPost";
-import Comment from "../../components/Comment/Comment";
+import AddPost from "../../components/AddPost";
 import AddComment from "../../components/addComment/addComment";
-import "./singlePost.css";
+import Comments from "../../components/Comment/Comments";
+import Wrapper from "../../style/Wrapper.styled";
+import Container from "../../style/Container.styled";
+import Title from "../../style/Title.styled";
+import PostStyled from "../../style/Post.styled";
+import Button from "../../style/Button.styled";
+import { PostImage, ServicesWrapper } from "./SinglePost.styled";
+import {
+  PostDate,
+  PostDescr,
+  PostMeta,
+} from "../../components/Post/Post.styled";
+import NotLoggedMessage from "../../style/NotLoggedMessage.styled";
 
 function SinglePost(props) {
   const [postData, setPostData] = useState(null);
@@ -78,61 +89,62 @@ function SinglePost(props) {
   }, [allComments, post_id]);
 
   return postData ? (
-    <div className="wrapper single-post">
-      <div className="container">
-        <div className="post">
-          <div className="post-entry">
-            <h1 className="post-title">{postData.title}</h1>
+    <Wrapper>
+      <Container>
+        <PostStyled>
+          <div>
+            <Title styled>{postData.title}</Title>
             {postData.image && (
-              <div className="post-image">
+              <PostImage>
                 <img
                   src={`${process.env.REACT_APP_IMAGE_SRC}${postData.image}`}
                   alt="img"
                 />
-              </div>
+              </PostImage>
             )}
-            <h2 className="post-descr">{postData.description}</h2>
-            <p className="post-fulltext">{postData.fullText}</p>
+            <PostDescr>{postData.description}</PostDescr>
+            <p>{postData.fullText}</p>
           </div>
-          <div className="post-meta">
-            <div className="post-author">Posted by {postData.postedBy}</div>
-            <div className="post-date">Posted at {postData.dateCreated}</div>
-          </div>
-          <div className="post-services-wrapper">
-            <button
+          <PostMeta>
+            <div>Posted by {postData.postedBy}</div>
+            <PostDate>Posted at {postData.dateCreated}</PostDate>
+          </PostMeta>
+          <ServicesWrapper>
+            <Button
+              styled
+              width="fit-content"
               onClick={() => isLoggedIn && handleOnLike(postData._id)}
               type="button"
-              className="post-likes"
             >
               {isLiked ? "Unlike" : "Like"} {postLikes}
-            </button>
+            </Button>
             {id === postData.postedBy && (
-              <div className="post-services">
-                <button
+              <div>
+                <Button
                   onClick={() => setShowEdit(!showEdit)}
                   type="button"
-                  className="button button-edit"
+                  width="fit-content"
                 >
                   Edit
-                </button>
-                <button
+                </Button>
+                <Button
                   onClick={() => handleOnDelete(postData._id)}
                   type="button"
-                  className="button button-delete"
+                  width="fit-content"
                 >
                   Delete
-                </button>
+                </Button>
               </div>
             )}
-          </div>
-        </div>
+          </ServicesWrapper>
+        </PostStyled>
         {showEdit && (
-          <div className="edit-form">
+          <div>
             <form onSubmit={handleSubmit}>
               <input type="file" ref={fileInput} />
-              <button className="button submit" type="submit">
+              <Button width="fit-content" type="submit">
                 Submit
-              </button>
+              </Button>
             </form>
             <AddPost
               postId={postData._id}
@@ -141,11 +153,11 @@ function SinglePost(props) {
             />
           </div>
         )}
-        <div className="post-comments">
-          <h2 className="comments-title">Comments</h2>
+        <div>
+          <Title>Comments</Title>
           {postComments.map((comment) => {
             return (
-              <Comment
+              <Comments
                 allComments={allComments}
                 key={comment._id}
                 {...comment}
@@ -163,10 +175,10 @@ function SinglePost(props) {
             method={CommentService.addComment}
           />
         ) : (
-          <div className="nologged-message">Please log in to leave a post</div>
+          <NotLoggedMessage>Please log in to leave a post</NotLoggedMessage>
         )}
-      </div>
-    </div>
+      </Container>
+    </Wrapper>
   ) : (
     <div>Loading... </div>
   );

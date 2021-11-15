@@ -10,3 +10,6 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 
 export const ADD_POST = "ADD_POST";
 export const LIKE_POST = "LIKE_POST";
+
+export const DARK_THEME = "DARK_THEME";
+export const LIGHT_THEME = "LIGHT_THEME";

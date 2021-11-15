@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from "react";
-import "./home.css";
 import { useSelector } from "react-redux";
 import PaginatedPosts from "../../components/PaginatedPosts/PaginatedPosts";
 import PostService from "../../api/posts-service";
-import AddPost from "../../components/addPost/AddPost";
+import AddPost from "../../components/AddPost";
 import getAllPostsOrdered from "../../utils/getAllPostsOrdered";
+import Button from "../../style/Button.styled";
+import Wrapper from "../../style/Wrapper.styled";
+import NotLoggedMessage from "../../style/NotLoggedMessage.styled";
+import Container from "../../style/Container.styled";
+import { Operations, PostsToggle, SearchWrapper } from "./Home.styled";
+import Input from "../../style/Input.styled";
 
 function Home() {
   const [allPosts, setAllPosts] = useState([]);
@@ -33,30 +38,37 @@ function Home() {
     setSortKey(e.target.value);
   };
   return (
-    <div className="wrapper">
-      <div className="container">
-        <div className="operations">
-          <div className="posts-toggle">
-            <button
+    <Wrapper>
+      <Container>
+        <Operations>
+          <PostsToggle>
+            <Button
+              backgroundColor="transparent"
               type="button"
               onClick={handleAllPosts}
-              className="button all-posts"
+              fontSize="20px"
+              backgroundHover="transparent"
+              colorHover="gray"
             >
               All posts
-            </button>
+            </Button>
             {isLoggedIn ? (
-              <button
+              <Button
+                backgroundColor="transparent"
                 type="button"
                 onClick={handleMyPosts}
-                className="button my-posts"
+                fontSize="20px"
+                backgroundHover="transparent"
+                colorHover="gray"
               >
                 My posts
-              </button>
+              </Button>
             ) : null}
-          </div>
-          <div className="search posts-search">
-            <input
+          </PostsToggle>
+          <SearchWrapper>
+            <Input
               type="text"
+              marginRight="10px"
               value={search}
               placeholder="Search"
               onChange={handleOnSearchChange}
@@ -68,16 +80,16 @@ function Home() {
               <option value="title">title</option>
               <option value="dateCreated">date</option>
             </select>
-          </div>
-        </div>
+          </SearchWrapper>
+        </Operations>
         <PaginatedPosts allPosts={allPosts} search={search} sortKey={sortKey} />
         {isLoggedIn ? (
           <AddPost method={PostService.addPost} setAllPosts={setAllPosts} />
         ) : (
-          <div className="nologged-message">Please log in to leave a post</div>
+          <NotLoggedMessage>Please log in to leave a post</NotLoggedMessage>
         )}
-      </div>
-    </div>
+      </Container>
+    </Wrapper>
   );
 }
 
