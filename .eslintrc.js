@@ -20,9 +20,8 @@ module.exports = {
   },
   plugins: ["react", "prettier", "react-hooks"],
   rules: {
-    "prettier/prettier": "error",
     "react/prop-types": 0,
-    "linebreak-style": ["error", "unix"],
+    "linebreak-style": "off",
     "arrow-body-style": "off",
     "prefer-arrow-callback": "off",
     "jsx-a11y/anchor-is-valid": "off",
@@ -32,5 +31,11 @@ module.exports = {
     "no-debugger": "warn",
     "no-unused-vars": "warn",
     "no-inline-comments": "warn",
+    "prettier/prettier": [
+      "error",
+      {
+        endOfLine: "auto",
+      },
+    ],
   },
 };

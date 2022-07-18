@@ -5,7 +5,7 @@ const getUser = (userId) => {
   return axios.get(`/users/${userId}`);
 };
 
-const getAllUsers = (limit = 100, skip = 200) => {
+const getAllUsers = (limit = 500, skip = 0) => {
   return axios.get("/users", { params: { limit, skip } });
 };
 

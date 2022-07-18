@@ -7,6 +7,7 @@
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
     "axios": "^0.23.0",
+    "env": "^0.0.2",
     "formik": "^2.2.9",
     "module": "^1.2.5",
     "react": "^17.0.2",
@@ -19,6 +20,7 @@
     "redux": "^4.1.1",
     "redux-devtools-extension": "^2.13.9",
     "redux-thunk": "^2.4.0",
+    "styled-components": "^5.3.5",
     "web-vitals": "^1.1.2",
     "yup": "^0.32.11"
   },
@@ -60,8 +62,8 @@
     "eslint-plugin-prettier": "^4.0.0",
     "eslint-plugin-react": "^7.26.1",
     "eslint-plugin-react-hooks": "^4.2.0",
+    "husky": "4.3.8",
     "lint-staged": "^11.2.0",
-    "prettier": "^2.4.1",
-    "husky": "4.3.8"
+    "prettier": "^2.4.1"
   }
 }
